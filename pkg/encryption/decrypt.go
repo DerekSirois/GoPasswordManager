@@ -4,6 +4,7 @@ import (
 	"crypto/aes"
 	"crypto/cipher"
 	"encoding/base64"
+	"os"
 )
 
 func Decode(s string) []byte {
@@ -15,6 +16,7 @@ func Decode(s string) []byte {
 }
 
 func Decrypt(text string) (string, error) {
+	MySecret := os.Getenv("SECRET")
 	block, err := aes.NewCipher([]byte(MySecret))
 	if err != nil {
 		return "", err
