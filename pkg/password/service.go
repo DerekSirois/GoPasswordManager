@@ -17,3 +17,18 @@ func CreatePassword(p *Password) error {
 	err = database.CreatePassword(pDb)
 	return err
 }
+
+func GetPassword(appname string) (*Password, error) {
+	p, err := database.GetPasswordByAppName(appname)
+	if err != nil {
+		return nil, err
+	}
+	pass, err := encryption.Decrypt(p.Password)
+	if err != nil {
+		return nil, err
+	}
+	return &Password{
+		AppName:  p.AppName,
+		Password: pass,
+	}, nil
+}

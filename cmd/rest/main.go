@@ -24,6 +24,7 @@ func main() {
 
 	router := mux.NewRouter()
 	router.HandleFunc("/password", handler.CreatePassword).Methods("POST")
+	router.HandleFunc("/password/{appname}", handler.GetPassword).Methods("GET")
 
 	log.Println("Serving on port 8080")
 	log.Println(http.ListenAndServe(":8080", router))
